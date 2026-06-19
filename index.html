@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sheher Bano — Personal Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --purple-mid: #AFA9EC;
+    --text: #1a1a2e;
+    --muted: #6b6b80;
+    --bg: #f4f4f8;
+    --white: #ffffff;
+    --border: rgba(83,74,183,0.13);
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; }
+  .topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+  .topbar-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--purple); font-weight: 700; }
+  .topbar-tag { font-size: 0.78rem; color: var(--purple); background: var(--purple-light); padding: 0.25rem 0.75rem; border-radius: 999px; font-weight: 500; }
+  .page { max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; align-items: start; }
+  .left-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .profile-banner { background: var(--purple); height: 80px; }
+  .profile-avatar-wrap { padding: 0 1.25rem; margin-top: -36px; margin-bottom: 1rem; }
+  .profile-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--purple-light); border: 3px solid var(--white); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--purple); font-weight: 700; }
+  .profile-info { padding: 0 1.25rem 1.25rem; }
+  .profile-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+  .profile-title { font-size: 0.82rem; color: var(--purple); font-weight: 500; margin-bottom: 0.75rem; }
+  .profile-bio { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+  .info-row { display: flex; align-items: center; gap: 0.6rem; font-size: 0.83rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .info-row span { color: var(--text); font-weight: 500; }
+  .info-icon { font-size: 1rem; width: 18px; text-align: center; }
+  .social-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; color: var(--purple); text-transform: uppercase; margin: 1.25rem 0 0.75rem; }
+  .social-btn { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0.75rem; border-radius: 8px; border: 1px solid var(--border); font-size: 0.83rem; font-weight: 500; color: var(--text); text-decoration: none; margin-bottom: 0.5rem; transition: background 0.2s, border-color 0.2s; }
+  .social-btn:hover { background: var(--purple-light); border-color: var(--purple-mid); color: var(--purple); }
+  .social-icon { font-size: 1rem; }
+  .right-col { display: flex; flex-direction: column; gap: 1.25rem; }
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+  .card-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; color: var(--purple); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .card-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 1.25rem; color: var(--text); }
+  .skill-row { margin-bottom: 0.9rem; }
+  .skill-row:last-child { margin-bottom: 0; }
+  .skill-meta { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.3rem; }
+  .skill-meta span:first-child { font-weight: 500; color: var(--text); }
+  .skill-meta span:last-child { color: var(--muted); }
+  .skill-bar-bg { background: var(--bg); border-radius: 999px; height: 6px; overflow: hidden; }
+  .skill-bar { background: var(--purple); height: 100%; border-radius: 999px; }
+  .skills-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag { background: var(--purple-light); color: var(--purple); font-size: 0.8rem; font-weight: 500; padding: 0.3rem 0.8rem; border-radius: 999px; }
+  .exp-item { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
+  .exp-item:last-child { margin-bottom: 0; }
+  .exp-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--purple); margin-top: 6px; flex-shrink: 0; }
+  .exp-role { font-weight: 600; font-size: 0.92rem; color: var(--text); }
+  .exp-company { font-size: 0.82rem; color: var(--purple); font-weight: 500; }
+  .exp-date { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .exp-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+  .hobbies-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .hobby-card { background: var(--bg); border-radius: 10px; padding: 0.9rem; text-align: center; border: 1px solid var(--border); }
+  .hobby-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+  .hobby-card p { font-size: 0.8rem; font-weight: 500; color: var(--text); }
+  .contact-strip { background: var(--purple); border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .contact-strip p { color: rgba(255,255,255,0.9); font-size: 0.9rem; }
+  .contact-strip strong { color: white; display: block; font-size: 1rem; }
+  .contact-btn { background: white; color: var(--purple); font-weight: 600; font-size: 0.85rem; padding: 0.6rem 1.4rem; border-radius: 8px; text-decoration: none; transition: opacity 0.2s; white-space: nowrap; }
+  .contact-btn:hover { opacity: 0.9; }
+  footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.8rem; }
+  @media (max-width: 680px) { .page { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-logo">Sheher Bano</span>
+  <span class="topbar-tag">Software Engineer</span>
+</div>
+
+<div class="page">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="left-card">
+    <div class="profile-banner"></div>
+    <div class="profile-avatar-wrap">
+      <div class="profile-avatar">SB</div>
+    </div>
+    <div class="profile-info">
+      <div class="profile-name">Sheher Bano</div>
+      <div class="profile-title">Software Engineer</div>
+      <div class="profile-bio">One of the strongest aspects of my personality is my unwavering dedication to my family. I would go to great lengths and do anything within my power to ensure their happiness and well-being.</div>
+
+      <hr class="divider" />
+
+      <div class="info-row"><span class="info-icon">📍</span> <span>Jaranwala, Pakistan</span></div>
+      <div class="info-row"><span class="info-icon">💼</span> <span>Software Engineer</span></div>
+      <div class="info-row"><span class="info-icon">✉️</span> <span>eyesangel267@gmail.com</span></div>
+
+      <div class="social-title">Connect with me</div>
+      <a href="https://linkedin.com/in/boss-lady" target="_blank" class="social-btn"><span class="social-icon">🔗</span> LinkedIn — Boss Lady</a>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="right-col">
+
+    <!-- SKILLS -->
+    <div class="card">
+      <div class="card-label">Expertise</div>
+      <div class="card-title">My skills</div>
+
+      <div class="skill-row">
+        <div class="skill-meta"><span>Python</span><span>Intermediate</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar" style="width:50%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-meta"><span>Web Development</span><span>Intermediate</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar" style="width:55%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-meta"><span>AI / Machine Learning</span><span>Learning</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar" style="width:25%"></div></div>
+      </div>
+
+      <hr class="divider" />
+      <div class="card-label" style="margin-bottom:0.75rem;">Tools & platforms</div>
+      <div class="skills-list">
+        <span class="skill-tag">HTML & CSS</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Claude AI</span>
+        <span class="skill-tag">Kaggle</span>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="card">
+      <div class="card-label">Journey</div>
+      <div class="card-title">Experience & learning</div>
+
+      <div class="exp-item">
+        <div class="exp-dot"></div>
+        <div>
+          <div class="exp-role">Software Engineer</div>
+          <div class="exp-company">Your Company Name Here</div>
+          <div class="exp-date">20XX — Present</div>
+          <div class="exp-desc">Add your work experience details here — what you do, what you've built, and what you're proud of.</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-dot"></div>
+        <div>
+          <div class="exp-role">AI Chatbox Project</div>
+          <div class="exp-company">Personal Project</div>
+          <div class="exp-date">2026 — Present</div>
+          <div class="exp-desc">Built a fully functional AI-powered chatbox integrated with Claude API as part of my personal portfolio.</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-dot"></div>
+        <div>
+          <div class="exp-role">AI & Machine Learning</div>
+          <div class="exp-company">Self-learning — fast.ai, Kaggle</div>
+          <div class="exp-date">2026 — Present</div>
+          <div class="exp-desc">Following a structured roadmap from Python basics to machine learning using free online resources.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOBBIES -->
+    <div class="card">
+      <div class="card-label">Personal</div>
+      <div class="card-title">Hobbies & interests</div>
+      <div class="hobbies-grid">
+        <div class="hobby-card">
+          <div class="hobby-icon">✈️</div>
+          <p>Travelling</p>
+        </div>
+        <div class="hobby-card">
+          <div class="hobby-icon">💻</div>
+          <p>Coding & Tech</p>
+        </div>
+        <div class="hobby-card">
+          <div class="hobby-icon">🍳</div>
+          <p>Cooking</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-strip">
+      <div>
+        <strong>Let's work together!</strong>
+        <p>Open to new opportunities and collaborations.</p>
+      </div>
+      <a href="mailto:eyesangel267@gmail.com" class="contact-btn">Get in touch →</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>© 2026 Sheher Bano · Built with 💜 by Sheher Bano</footer>
+
+</body>
+</html>
