@@ -243,9 +243,9 @@
 
 <script>
   // =====================================================
-  // PASTE YOUR OPENROUTER API KEY BELOW (between the quotes)
+  // The API key now lives safely on a Cloudflare Worker — never in this file.
   // =====================================================
-  const OPENROUTER_API_KEY = "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";
+  const WORKER_URL = "https://bold-thunder-391csheher-ai-proxy.eyesangel267.workers.dev";
 
   // "openrouter/free" auto-picks a working free model. These are backups if it's busy.
   const CHAT_MODELS = [
@@ -311,12 +311,10 @@ Facts about Sheher Bano:
       throw new Error("All free models are busy right now. Please try again in a minute.");
     }
 
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    const response = await fetch(WORKER_URL, {
       method: "POST",
       headers: {
-        "Authorization": "Bearer " + OPENROUTER_API_KEY,
-        "Content-Type": "application/json",
-        "X-Title": "Sheher Bano Portfolio Chatbox"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         model: CHAT_MODELS[modelIndex],
@@ -344,11 +342,6 @@ Facts about Sheher Bano:
   async function sendChatMessage() {
     const text = chatInputEl.value.trim();
     if (!text) return;
-
-    if (OPENROUTER_API_KEY === "PASTE_YOUR_OPENROUTER_KEY_HERE") {
-      addChatMessage('error', "Please paste your OpenRouter API key into the code first.");
-      return;
-    }
 
     addChatMessage('user', text);
     chatInputEl.value = '';
